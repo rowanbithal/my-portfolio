@@ -1,0 +1,113 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* iA Writer Mono — same CDN cassidoo.co uses */
+@font-face {
+  font-family: "iA Writer Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/ia-writer-mono@latest/latin-400-normal.woff2) format("woff2"),
+       url(https://cdn.jsdelivr.net/fontsource/fonts/ia-writer-mono@latest/latin-400-normal.woff) format("woff");
+}
+@font-face {
+  font-family: "iA Writer Mono";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 700;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/ia-writer-mono@latest/latin-700-normal.woff2) format("woff2"),
+       url(https://cdn.jsdelivr.net/fontsource/fonts/ia-writer-mono@latest/latin-700-normal.woff) format("woff");
+}
+@font-face {
+  font-family: "iA Writer Mono";
+  font-style: italic;
+  font-display: swap;
+  font-weight: 400;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/ia-writer-mono@latest/latin-400-italic.woff2) format("woff2"),
+       url(https://cdn.jsdelivr.net/fontsource/fonts/ia-writer-mono@latest/latin-400-italic.woff) format("woff");
+}
+@font-face {
+  font-family: "iA Writer Mono";
+  font-style: italic;
+  font-display: swap;
+  font-weight: 700;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/ia-writer-mono@latest/latin-700-italic.woff2) format("woff2"),
+       url(https://cdn.jsdelivr.net/fontsource/fonts/ia-writer-mono@latest/latin-700-italic.woff) format("woff");
+}
+
+/*
+  ── Design tokens ────────────────────────────────────────────────
+  Colours taken from cassidoo.co. iA Writer Mono is used for all
+  text (body, headings, nav) — same as the reference site.
+  JetBrains Mono is kept for inline code / code blocks only.
+*/
+@theme {
+  --font-sans: "iA Writer Mono", monospace;
+  --font-serif: "iA Writer Mono", monospace;
+  --font-mono: var(--font-jetbrains-mono), "iA Writer Mono", monospace;
+
+  --color-bg: #faf5f6;
+  --color-surface: #ffffff;
+  --color-ink: #252525;
+  --color-muted: #6b6b6b;
+  --color-line: #e5e0e1;
+  --color-accent: #eb4888;
+  --color-accent-soft: #e5ffc3;
+  --color-green: #16a34a;
+  --color-blue: #0284c7;
+}
+
+@media (prefers-color-scheme: dark) {
+  @theme {
+    --color-bg: #131313;
+    --color-surface: #1B1B1B;
+    --color-ink: #faf5f6;
+    --color-muted: #9a9a9a;
+    --color-line: #3a3636;
+    --color-accent: #eb4888;
+    --color-accent-soft: #020202;
+    --color-green: #91FF91;
+    --color-blue: #90D5FF;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Visible keyboard focus everywhere. */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Tune the blog-post (prose) styling to the site's tokens. */
+.prose {
+  --tw-prose-body: var(--color-ink);
+  --tw-prose-headings: var(--color-ink);
+  --tw-prose-links: var(--color-accent);
+  --tw-prose-bold: var(--color-ink);
+  --tw-prose-quotes: var(--color-muted);
+  --tw-prose-code: var(--color-ink);
+  --tw-prose-hr: var(--color-line);
+  --tw-prose-quote-borders: var(--color-accent);
+}
+.prose h1,
+.prose h2,
+.prose h3 {
+  font-family: var(--font-serif);
+}

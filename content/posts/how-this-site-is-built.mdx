@@ -1,0 +1,27 @@
+---
+title: "How this site is built"
+date: "2026-06-10"
+summary: "A short tour of the stack: Next.js App Router, MDX, and a tiny design system."
+---
+
+Since the site itself is meant to show off how I work, it seems only fair to
+explain how it's put together.
+
+## The stack
+
+- **Next.js (App Router)** for routing and static rendering. Pages that don't
+  change between requests are pre-rendered at build time, so they load fast.
+- **MDX** for these posts — Markdown plus the option to embed React components.
+- **Tailwind** for styling, driven by a small set of CSS variables so the whole
+  site can be re-themed from one place.
+
+## The part I'm proudest of
+
+The blog reads `.mdx` files straight off disk at build time and turns the
+frontmatter into a typed list of posts. No database, no CMS — adding a post is
+just adding a file. That simplicity is the feature.
+
+## What's next
+
+I want to add an RSS feed and maybe a small "now" page. If you're reading this
+and have ideas, my email is in the footer.
