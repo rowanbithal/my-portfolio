@@ -114,7 +114,7 @@ export default function Home() {
             <GradientOverlay />
             <div>
               <p className="font-mono text-xs text-(--color-muted)">
-                What I use
+                What I use & Software I am inspired by
               </p>
               <h2 className="mt-1 font-serif text-xl font-semibold">
                 Toolbox

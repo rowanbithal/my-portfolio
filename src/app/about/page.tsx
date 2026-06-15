@@ -7,7 +7,7 @@ export const metadata: Metadata = { title: "About" };
 
 const timeline: TimelineEntry[] = [
     {
-    period: "Oct 2026 – Present",
+    period: "Oct 2026",
     title: "Software Engineer",
     org: "Accenture",
     body: "...",

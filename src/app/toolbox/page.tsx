@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = { title: "Toolbox" };
 
 const D = "https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/icons";
+const SI = "https://cdn.simpleicons.org";
 
 type Tool = { name: string; icon: string; invert?: boolean };
 type Category = { name: string; tools: Tool[] };
@@ -24,7 +25,6 @@ const categories: Category[] = [
       { name: "Spring Boot", icon: `${D}/spring/spring-original.svg` },
       { name: "React", icon: `${D}/react/react-original.svg` },
       { name: "React Native", icon: `${D}/react/react-original.svg` },
-      { name: "Flask", icon: `${D}/flask/flask-original.svg`, invert: true },
     ],
   },
   {
@@ -33,7 +33,6 @@ const categories: Category[] = [
       { name: "Docker", icon: `${D}/docker/docker-original.svg` },
       { name: "Azure", icon: `${D}/azure/azure-original.svg` },
       { name: "GitHub Actions", icon: `${D}/github/github-original.svg`, invert: true },
-      { name: "Terraform", icon: `${D}/terraform/terraform-original.svg` },
     ],
   },
   {
@@ -41,6 +40,15 @@ const categories: Category[] = [
     tools: [
       { name: "PostgreSQL", icon: `${D}/postgresql/postgresql-original.svg` },
       { name: "Git", icon: `${D}/git/git-original.svg` },
+    ],
+  },
+  {
+    name: "Apps",
+    tools: [
+      { name: "Claude", icon: `${SI}/anthropic` },
+      { name: "Notion", icon: `${SI}/notion`, invert: true },
+      { name: "Figma", icon: `${SI}/figma` },
+      { name: "Arc", icon: `${SI}/arc` },
     ],
   },
 ];

@@ -38,24 +38,24 @@ export function Timeline({ entries }: { entries: TimelineEntry[] }) {
       const rect = el.getBoundingClientRect();
       containerHeightRef.current = rect.height;
       const vh = window.innerHeight;
-      // Ball tracks a reading line at 60% down the viewport
       const fraction = (vh * 0.5 - rect.top) / rect.height;
-      setBallY(Math.max(0, Math.min(1, fraction)) * (rect.height - 12));
+      // Clamp ball between the two cap lines rather than the raw container edges.
+      // Cap sentinels are h-8 (32px); their lines are at the 50% mark (16px).
+      // Ball is h-3 (12px); top-property positions its top edge, so subtract 6px
+      // to keep the ball center on the cap line.
+      const BALL_H = 12;
+      const maxY = rect.height - BALL_H / 2; // rect.height - 22px — bottom cap line
+      const clamped = Math.max(0, Math.min(1, fraction));
+      setBallY(clamped * maxY);
     }
     window.addEventListener("scroll", update, { passive: true });
     update();
     return () => window.removeEventListener("scroll", update);
   }, []);
 
-  useEffect(() => {
-    const html = document.documentElement;
-    html.style.scrollSnapType = "y proximity";
-    return () => {
-      html.style.scrollSnapType = "";
-    };
-  }, []);
 
   return (
+    <>
     <div className="relative" ref={containerRef}>
       {/* Blue gradient above ball — fades from transparent to blue at ball center */}
       <div
@@ -77,7 +77,7 @@ export function Timeline({ entries }: { entries: TimelineEntry[] }) {
           left: "5px",
           width: "2px",
           top: `${ballY + 6}px`,
-          height: `${Math.min(100, ballY + 6)}px`,
+          height: `${Math.max(0, Math.min(100, containerHeightRef.current - ballY - 6))}px`,
           background: "linear-gradient(to bottom, rgba(235, 72, 136, 1), transparent)",
         }}
       />
@@ -90,8 +90,10 @@ export function Timeline({ entries }: { entries: TimelineEntry[] }) {
       />
 
       <ol className="space-y-12">
-        {entries.map((entry) => (
-          <li key={entry.period} className="grid grid-cols-[12px_1fr] gap-x-6 snap-center">
+
+
+        {entries.map((entry, i) => (
+          <li key={entry.period} className="grid grid-cols-[12px_1fr] gap-x-6">
             {/* Left column: dot centered vertically, lines extending through the gap */}
             <div className="relative flex items-center justify-center">
               {/* Line from top of row up to dot center */}
@@ -99,17 +101,21 @@ export function Timeline({ entries }: { entries: TimelineEntry[] }) {
                 className="absolute left-1/2 w-px -translate-x-1/2 bg-(--color-line)"
                 style={{ top: 0, bottom: "50%" }}
               />
-              {/* Line from dot center down through the space-y-12 gap to next entry */}
+              {/* Line from dot center down — extends into the gap on all entries
+                  except the last, which stops flush at the bottom of the row */}
               <div
                 className="absolute left-1/2 w-px -translate-x-1/2 bg-(--color-line)"
-                style={{ top: "50%", height: "calc(50% + 3rem)" }}
+                style={{
+                  top: "50%",
+                  height: i === entries.length - 1 ? "50%" : "calc(50% + 3rem)",
+                }}
               />
               <div className="relative z-10 h-2 w-2 rounded-full bg-(--color-line)" />
             </div>
 
             {/* Right column: content */}
             <div>
-              <time className="font-mono text-xs uppercase tracking-wider text-(--color-accent)">
+              <time className="font-mono text-xs uppercase tracking-wider text-(--color-green)">
                 {entry.period}
               </time>
               <h3 className="mt-1 font-serif text-lg font-semibold">
@@ -125,7 +131,14 @@ export function Timeline({ entries }: { entries: TimelineEntry[] }) {
             </div>
           </li>
         ))}
+
       </ol>
     </div>
+
+    {/* Spacer outside containerRef — keeps rect.height clean so the ball
+        clamp calculation isn't inflated by this extra scroll room.
+        50dvh ensures the bottom snap-center point is always reachable. */}
+    <div aria-hidden style={{ height: "40dvh" }} />
+    </>
   );
 }

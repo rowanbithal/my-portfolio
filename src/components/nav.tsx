@@ -13,9 +13,13 @@ export function Nav({ siteName }: { siteName: string }) {
     <header className="flex items-center justify-between border-b border-(--color-line) py-6">
       <Link
         href="/"
-        className="font-serif text-lg font-semibold tracking-tight"
+        className="group relative font-serif text-lg font-semibold tracking-tight"
       >
         {siteName}
+        <span
+          aria-hidden
+          className="absolute bottom-0 left-0 h-[2px] w-0 bg-accent transition-all duration-250 group-hover:w-full"
+        />
       </Link>
       <nav className="flex gap-5 font-mono text-sm text-(--color-muted)">
         {links.slice(1).map((link) => (

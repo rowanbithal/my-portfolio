@@ -10,8 +10,8 @@ const mono = JetBrains_Mono({
   display: "swap",
 });
 
-const SITE_NAME = "Rowan Bithal";
-const SITE_TAGLINE = "CS student at Birmingham, building full-stack systems and cloud infrastructure.";
+const SITE_NAME = "🪴 Rowan Bithal";
+const SITE_TAGLINE = "Software Engineer Portfolio";
 
 export const metadata: Metadata = {
   title: {
