@@ -67,7 +67,7 @@ export default function Home() {
       <section className="pt-4">
         <p className="font-mono text-sm text-(--color-blue)">Hi, I am a</p>
         <h1 className="mt-2 font-serif text-2xl font-semibold tracking-tight sm:text-4xl">
-          Graduate Computer Science student
+          Graduate Computer Science Student
         </h1>
         <p className="mt-4 max-w-prose text-lg leading-relaxed text-(--color-muted)">
           from the{" "}
